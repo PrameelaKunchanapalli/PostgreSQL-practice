@@ -131,4 +131,117 @@ SELECT p1.name AS product1, p2.name AS product2, p1.price
 FROM products1 p1
 JOIN products1 p2 ON p1.price = p2.price AND p1.id <> p2.id;
 
+CREATE TABLE colors(
+id serial PRIMARY KEY,
+name VARCHAR (50),
+color VARCHAR(50),
+price INT
+)
+
+INSERT INTO colors( id,name,color,price)
+VALUES
+(1,'rose','red',100),
+(2,'jasmine','white',80),
+(3,'sunflower','yellow',200),
+(4,'lilly','white',40),
+(5,'tulip','lilac',500),
+(6,'hibiscus','red',200);
+
+SELECT * FROM colors
+
+ALTER TABLE colors
+ADD COLUMN smell VARCHAR(20)
+
+UPDATE colors SET smell ='fresh'
+
+UPDATE colors SET smell ='mild' WHERE color='lilac';
+
+CREATE TABLE chocolates(
+ID serial PRIMARY KEY ,
+name VARCHAR(100),
+type VARCHAR (100),
+color VARCHAR (100),
+price INT 
+)
+ INSERT INTO chocolates (name, type, color, price) 
+VALUES 
+('Dairy Milk', 'Milk Chocolate', 'Brown', 50),
+('Lindt Excellence', 'Dark Chocolate', 'Dark Brown', 120),
+('Ferrero Rocher', 'Hazelnut Chocolate', 'Golden Brown', 150),
+('KitKat', 'Wafer Chocolate', 'Brown', 40),
+('Toblerone', 'Swiss Chocolate', 'Brown', 130),
+('Snickers', 'Nut Chocolate', 'Dark Brown', 60),
+('Galaxy', 'Milk Chocolate', 'Light Brown', 70),
+('Perk', 'Wafer Chocolate', 'Brown', 20),
+('Munch', 'Crunchy Chocolate', 'Brown', 15),
+('Bournville', 'Dark Chocolate', 'Dark Brown', 110);
+ SELECT * FROM chocolates
+
+SELECT 
+  *
+FROM colors
+INNER JOIN chocolates
+ON colors.price = chocolates.price;
+
+
+SELECT colors.name AS color_name,
+colors.smell AS _smell,
+chocolates.name AS chocolate_name,
+chocolates.color AS chocolate_color
+FROM colors INNER JOIN chocolates ON 
+colors.id = chocolates.id;
+
+SELECT 
+  *
+FROM colors
+INNER JOIN chocolates
+ON colors.id = chocolates.id;
+
+SELECT  colors.smell AS s_mell,
+colors.color AS color_color,
+chocolates.color AS c_olor
+FROM colors
+LEFT JOIN chocolates
+ON colors.name = chocolates.color;
+
+CREATE TABLE EMP1 (
+id SERIAL primary key ,
+name VARCHAR(100)
+
+);
+
+INSERT INTO EMP1(id,name)
+VALUES (1 , 'prameela'),
+(2, 'manasa'),
+(3, 'sanghavi');
+
+CREATE TABLE EMP2(
+id serial, 
+name VARCHAR(100),
+salary INT,
+date DATE
+);
+
+INSERT INTO EMP2( id ,name, salary , date)
+VALUES(1,  'manaj', 20000,'2010-2-12'),
+(2,  'shash',35000,'2011-3-12'),
+(3, 'mujahid',36000 ,'2012-4-12' );
+
+SELECT EMP1.id AS serial,
+EMP1.name AS n_ame,
+EMP2.name AS nam_e,
+EMP2.salary AS sal
+FROM EMP1 FULL JOIN EMP2 ON EMP1.name=EMP2.name
+
+SELECT *
+FROM EMP1
+CROSS JOIN EMP2;
+
+SELECT id AS serial , name AS n_ame FROM  EMP1
+UNION 
+SELECT salary AS serial , date ::TEXT AS n_ame FROM EMP2;
+
+SELECT max(name),salary
+FROM EMP2
+GROUP BY salary;
 
